@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tugaschapter6kamis.adapter.FilmAdapter
 import com.example.tugaschapter6kamis.viewmodel.ViewmodelFilm
+import kotlinx.android.synthetic.main.activity_main.*
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -30,8 +32,9 @@ class MainActivity : AppCompatActivity() {
             pdialog.show()
         }
 
-        override fun doInBackground(vararg p0: Int?): String {
-            TODO("Not yet implemented")
+        override fun doInBackground(vararg p0: Int?): String? {
+            blankRecyclerView()
+            return null
         }
 
         override fun onProgressUpdate(vararg values: Void?) {
@@ -40,9 +43,11 @@ class MainActivity : AppCompatActivity() {
 
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
+            getDataFilm()
+            pdialog.dismiss()
         }
 
-        fun getDataFilm(){
+        private fun getDataFilm(){
             val viewmodel = ViewModelProvider(this@MainActivity).get(ViewmodelFilm::class.java)
             viewmodel.getLiveFilm().observe(this@MainActivity, Observer {
                 if (it != null){
@@ -51,6 +56,12 @@ class MainActivity : AppCompatActivity() {
                 }
             })
             viewmodel.getFilmAPI()
+        }
+
+        private fun blankRecyclerView(){
+            rv_film.layoutManager = LinearLayoutManager(cont)
+            adapterfilm = FilmAdapter()
+            rv_film.adapter = adapterfilm
         }
     }
 }

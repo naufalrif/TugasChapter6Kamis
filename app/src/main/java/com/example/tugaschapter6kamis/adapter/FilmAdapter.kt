@@ -9,7 +9,7 @@ import com.example.tugaschapter6kamis.R
 import com.example.tugaschapter6kamis.model.GetAllFilmItem
 import kotlinx.android.synthetic.main.item_film.view.*
 
-class FilmAdapter(private val onClick : (GetAllFilmItem) -> Unit) : RecyclerView.Adapter<FilmAdapter.Viewholder>() {
+class FilmAdapter() : RecyclerView.Adapter<FilmAdapter.Viewholder>() {
     private var datafilm : List<GetAllFilmItem>? = null
 
     fun setDataFilm(film : List<GetAllFilmItem>){
@@ -31,9 +31,9 @@ class FilmAdapter(private val onClick : (GetAllFilmItem) -> Unit) : RecyclerView
         holder.itemView.tv_director.text = datafilm!![position].director
         Glide.with(holder.itemView.context).load(datafilm!![position].image)
             .into(holder.itemView.img_film)
-        holder.itemView.cv_film.setOnClickListener {
-            onClick(datafilm!![position])
-        }
+//        holder.itemView.cv_film.setOnClickListener {
+//            onClick(datafilm!![position])
+//        }
     }
 
     override fun getItemCount(): Int {
